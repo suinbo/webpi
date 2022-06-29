@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+        "strict": true,
+        "jsx": "react",
+        "target": "es2016",
+        "lib": ["ES2016", "DOM"],
+        "sourceMap": true, // false
+        "declaration": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "outDir": "./dist/",
+        // "rootDir": "./src/",
+        "baseUrl": "./src/",
+        "module": "esnext",
+        "paths": {
+            "@/*": ["./app/*"],
+            "@components/*": ["./app/components/*"],
+            "@pages/*": ["./app/pages/*"],
+            "@apis/*": ["./app/utils/apis/*"],
+            "@types": ["./app/utils/resources/types"],
+            "assets/*": ["./assets/*"],
+        },
+        "typeRoots": ["node_modules/@types", "types.d.ts"]
+    }
+}
+  
