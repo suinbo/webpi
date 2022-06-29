@@ -5,14 +5,9 @@ const { merge } = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-//const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
-const isProduction = process.argv.indexOf('prod') >= 0 || process.env.NODE_ENV === 'production'
-
 const defaultPlugin = [
-    //new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
         template: './index.html',
         favicon: '',
@@ -24,7 +19,6 @@ const defaultPlugin = [
             collapseInlineTagWhitespace: true,
         },
     }),
-    // new BundleAnalyzerPlugin(),
     new CleanWebpackPlugin({
         root: __dirname,
         verbose: true,
@@ -44,7 +38,7 @@ const defaultPlugin = [
     }),
 ]
 
-const defualtConfig = {
+const defaultConfig = {
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
     entry: {
@@ -165,102 +159,7 @@ const webpackConfig = [
             runtimeChunk: 'single',
         },
     },
-    {
-        name: 'stg',
-        mode: 'development',
-        output: {
-            filename: 'js/[contenthash].js',
-            chunkFilename: 'js/[name].[contenthash].js',
-            assetModuleFilename: 'assets/[contenthash][ext][query]',
-            path: path.resolve(__dirname, 'dist'),
-            publicPath: '/',
-        },
-        optimization: {
-            runtimeChunk: 'single',
-            splitChunks: {
-                chunks: 'all',
-                name: false,
-                cacheGroups: {
-                    commons: {
-                        name: 'commons',
-                        chunks: 'initial',
-                        minChunks: 2,
-                    },
-                    vender: {
-                        test: /[\\/]node_modules[\\/]/,
-                        chunks: 'all',
-                        enforce: true,
-                        filename: 'vendor/vendor.[contenthash].js',
-                        priority: -10,
-                    },
-                    styles: {
-                        test: /\.css$/,
-                        name: 'styles',
-                        chunks: 'all',
-                        enforce: true,
-                    },
-                },
-            },
-            runtimeChunk: true,
-        },
-        performance: {
-            hints: false,
-        },
-        plugins: defaultPlugin.concat([new Dotenv({ path: `.env.stg`, systemvars: true })]),
-        devtool: false,
-        devServer: {
-            hot: true,
-            static: false,
-            historyApiFallback: {
-                index: '/',
-            },
-        },
-    },
-    {
-        name: 'prod',
-        mode: 'production',
-        output: {
-            filename: 'js/[contenthash].js',
-            chunkFilename: 'js/[name].[contenthash].js',
-            assetModuleFilename: 'assets/[contenthash][ext][query]',
-            path: path.resolve(__dirname, 'dist'),
-            publicPath: '/',
-        },
-        optimization: {
-            runtimeChunk: 'single',
-            splitChunks: {
-                chunks: 'all',
-                name: false,
-                cacheGroups: {
-                    commons: {
-                        name: 'commons',
-                        chunks: 'initial',
-                        minChunks: 2,
-                    },
-                    vender: {
-                        test: /[\\/]node_modules[\\/]/,
-                        chunks: 'all',
-                        enforce: true,
-                        filename: 'vendor/vendor.[contenthash].js',
-                        priority: -10,
-                    },
-                    styles: {
-                        test: /\.css$/,
-                        name: 'styles',
-                        chunks: 'all',
-                        enforce: true,
-                    },
-                },
-            },
-            runtimeChunk: true,
-        },
-        performance: {
-            hints: false,
-        },
-        plugins: defaultPlugin.concat([new Dotenv({ path: `.env.prod`, systemvars: true })]),
-        devtool: false,
-    },
-].map(config => merge(defualtConfig, config))
+].map(config => merge(defaultConfig, config))
 
 module.exports = args => {
     const requestedConfig = Object.keys(args).filter(key => !/^WEBPACK_/.test(key))
@@ -272,7 +171,6 @@ module.exports = args => {
         configs = webpackConfig.filter(config => requestedConfig.includes(config.name))
         console.log(`Building configs: ${configs.map(config => config.name).join(', ')}.\n`)
     }
-
-    console.log('isProduction ?', isProduction)
+    
     return configs
 }
