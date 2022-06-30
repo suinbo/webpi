@@ -111,7 +111,7 @@ const defaultConfig = {
                     {
                         loader: 'sass-loader',
                         options: {
-                            additionalData: '@import "assets/styles/variables.scss";',
+                            additionalData: '@import "assets/style.scss";',
                         },
                     },
                 ],
