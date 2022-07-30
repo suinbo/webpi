@@ -23,9 +23,9 @@ Install the dependencies and devDependencies and start the server.
 will be run at 127.0.0.1:9000
 
 ```bash
-cd gbo-web
+cd webpi
 npm install
-npm run dev
+npm run-script dev
 ```
 
 #### Build
