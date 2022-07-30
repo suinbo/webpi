@@ -25,7 +25,7 @@ will be run at 127.0.0.1:9000
 ```bash
 cd gbo-web
 npm install
-npm run dev
+npm run-script dev
 ```
 
 #### Build
