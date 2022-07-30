@@ -1,7 +1,7 @@
 {
 	"name": "webpi-service",
 	"version": "0.0.1",
-	"author": "qpoiop",
+	"author": "suin",
 	"description": "webpi-service",
 	"types": "dist/src/index.d.ts",
 	"main": "dist/src/index.js",
@@ -10,15 +10,8 @@
 		"dist/**/*",
 		"src/**/*"
 	],
-	"keywords": [
-		"embrace"
-	],
 	"scripts": {
 		"dev": "webpack-dev-server --progress --env dev --port 9010",
-		"stg": "webpack-dev-server --progress --env stg --port 9010",
-		"prod": "webpack-dev-server --progress --env prod --port 9010",
-		"build": "webpack --progress --env prod",
-		"build-stg": "webpack --progress --env stg",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
